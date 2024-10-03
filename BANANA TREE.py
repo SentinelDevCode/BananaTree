@@ -5,41 +5,42 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from pystyle import * 
+import time 
 
 RED = '\033[1;91m'
 WHITE = '\033[0m'
 BLUE = '\033[1;34m'
-GREEN = '\033[1;32m'
-GOLD = '\033[0;33m'
-PURPLE = '\033[0;35m'
 
-def Opening(): 
-    art = """
-    ____  ___    _   _____    _   _____     __________  ____________
-   / __ )/   |  / | / /   |  / | / /   |   /_  __/ __ \/ ____/ ____/
-  / __  / /| | /  |/ / /| | /  |/ / /| |    / / / /_/ / __/ / __/
- / /_/ / ___ |/ /|  / ___ |/ /|  / ___ |   / / / _, _/ /___/ /___
-/_____/_/  |_/_/ |_/_/  |_/_/ |_/_/  |_/  /_/ /_/ |_/_____/_____/
+art = """
+ ▄▄▄▄    ▄▄▄       ███▄    █  ▄▄▄       ███▄    █  ▄▄▄         ▄▄▄█████▓ ██▀███  ▓█████ ▓█████ 
+▓█████▄ ▒████▄     ██ ▀█   █ ▒████▄     ██ ▀█   █ ▒████▄       ▓  ██▒ ▓▒▓██ ▒ ██▒▓█   ▀ ▓█   ▀ 
+▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒██  ▀█▄  ▓██  ▀█ ██▒▒██  ▀█▄     ▒ ▓██░ ▒░▓██ ░▄█ ▒▒███   ▒███   
+▒██░█▀  ░██▄▄▄▄██ ▓██▒  ▐▌██▒░██▄▄▄▄██ ▓██▒  ▐▌██▒░██▄▄▄▄██    ░ ▓██▓ ░ ▒██▀▀█▄  ▒▓█  ▄ ▒▓█  ▄ 
+░▓█  ▀█▓ ▓█   ▓██▒▒██░   ▓██░ ▓█   ▓██▒▒██░   ▓██░ ▓█   ▓██▒     ▒██▒ ░ ░██▓ ▒██▒░▒████▒░▒████▒
+░▒▓███▀▒ ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒   ▓▒█░░ ▒░   ▒ ▒  ▒▒   ▓▒█░     ▒ ░░   ░ ▒▓ ░▒▓░░░ ▒░ ░░░ ▒░ ░
+▒░▒   ░   ▒   ▒▒ ░░ ░░   ░ ▒░  ▒   ▒▒ ░░ ░░   ░ ▒░  ▒   ▒▒ ░       ░      ░▒ ░ ▒░ ░ ░  ░ ░ ░  ░
+ ░    ░   ░   ▒      ░   ░ ░   ░   ▒      ░   ░ ░   ░   ▒        ░        ░░   ░    ░      ░   
+ ░            ░  ░         ░       ░  ░         ░       ░  ░               ░        ░  ░   ░  ░
+      ░  
 """
-    print()
-    print()
-    print()
-    print(Colorate.Horizontal(Colors.red_to_blue, Center.XCenter(art)))
-    print()
-    print(Center.XCenter(f"  Fork By : {RED}Protected{WHITE}"))
-    print()
 
 def Starting():
-    url = input(f" {PURPLE}[{BLUE}+{PURPLE}]{WHITE} Url > ")
-    web_crawler(url)
-
+    try:
+        url = input(f" {BLUE}[ {WHITE}? {BLUE}]{WHITE} Enter URL -> ")
+        web_crawler(url)
+    except KeyboardInterrupt:
+        time.sleep(0.5)
+        print()
+        print(f" {BLUE}[ {RED}X{BLUE} ]{RED} Stopped by user!{WHITE}")
+        print()
+        time.sleep(0.5)
 def fetch_page(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
-        print(f" {PURPLE}[{RED}!{PURPLE}]{PURPLE} >{RED}  ERROR {WHITE}: 404")
+        print(f" {BLUE}[ {RED}X{BLUE} ]{RED} ERROR -> {WHITE}000x404")
         return None
 
 def extract_links(html, base_url):
@@ -61,7 +62,15 @@ def web_crawler(start_url, max_depth=10):
             continue
         
         visited.add(current_url)
-        print(RED + f" {PURPLE}[{GREEN}!{PURPLE}] > " + WHITE, current_url)
+        os.system("cls")
+        print()
+        print()
+        print()
+        print(Colorate.Horizontal(Colors.red_to_white, Center.XCenter(art)))
+        print()
+        print(Center.XCenter(f"  Fork By : {RED}Protected{WHITE}"))
+        print()
+        print(RED + f" {BLUE}[ {WHITE}${BLUE} ]{WHITE} ->" + WHITE, current_url)
         
         html = fetch_page(current_url)
         if not html:
@@ -71,5 +80,11 @@ def web_crawler(start_url, max_depth=10):
         for link in links:
             queue.append((link, current_depth + 1))
 
-Opening()
+print()
+print()
+print()
+print(Colorate.Horizontal(Colors.red_to_white, Center.XCenter(art)))
+print()
+print(Center.XCenter(f"  Fork By : {RED}Protected{WHITE}"))
+print()
 Starting()
