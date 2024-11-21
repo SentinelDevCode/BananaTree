@@ -68,7 +68,7 @@ def web_crawler(start_url, max_depth=10):
         print()
         print(Colorate.Horizontal(Colors.red_to_white, Center.XCenter(art)))
         print()
-        print(Center.XCenter(f"  Fork By : {RED}Storon1k{WHITE}"))
+        print(Center.XCenter(f"  Fork By : {RED}Obsevant{WHITE}"))
         print()
         print(RED + f" {BLUE}[ {WHITE}${BLUE} ]{WHITE} ->" + WHITE, current_url)
         
