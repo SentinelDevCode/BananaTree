@@ -27,7 +27,7 @@ def clear_screen():
 
 def display_banner():
     print("\n" * 3)
-    print(Colorate.Horizontal(Colors.red_to_white, Center.XCenter(BANNER)))
+    print(Colorate.Vertical(Colors.red_to_white, Center.XCenter(BANNER)))
     print()
     print(Center.XCenter(f"  Fork By : {RED}Observant{WHITE}"))
     print()
