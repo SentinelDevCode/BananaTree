@@ -1,15 +1,17 @@
 import os
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from pystyle import Colors, Colorate, Center
 import time
+from datetime import datetime
 
 RED = '\033[1;91m'
 WHITE = '\033[0m' 
 BLUE = '\033[1;34m'
+GRAY = '\033[1;90m'
 
-BANNER = """
+art = """
  ▄▄▄▄    ▄▄▄       ███▄    █  ▄▄▄       ███▄    █  ▄▄▄         ▄▄▄█████▓ ██▀███  ▓█████ ▓█████ 
 ▓█████▄ ▒████▄     ██ ▀█   █ ▒████▄     ██ ▀█   █ ▒████▄       ▓  ██▒ ▓▒▓██ ▒ ██▒▓█   ▀ ▓█   ▀ 
 ▒██▒ ▄██▒██  ▀█▄  ▓██  ▀█ ██▒▒██  ▀█▄  ▓██  ▀█ ██▒▒██  ▀█▄     ▒ ▓██░ ▒░▓██ ░▄█ ▒▒███   ▒███   
@@ -22,23 +24,49 @@ BANNER = """
       ░  
 """
 
-def clear_screen():
-    os.system("cls" if os.name == "nt" else "clear")
+forkAM = f"""
+                       {BLUE}╭────────────────────╮
+                       │ {WHITE}Fork By: {RED}Observant{BLUE} │
+                       ╰────────────────────╯{WHITE}    
+"""
 
-def display_banner():
+def get_domain_name(url):
+    parsed_uri = urlparse(url)
+    domain = parsed_uri.netloc
+    return domain.split('.')[-2] if len(domain.split('.')) > 1 else domain
+
+def ensure_log_directory():
+    log_dir = "webLog"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    return log_dir
+
+def log_url(url, start_url):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    domain = get_domain_name(start_url)
+    log_dir = ensure_log_directory()
+    log_file_path = os.path.join(log_dir, f"{domain}.log")
+    
+    with open(log_file_path, "a", encoding="utf-8") as log_file:
+        log_file.write(f"[{timestamp}] - {url}\n")
+
+def artPrint():
     print("\n" * 3)
-    print(Colorate.Vertical(Colors.red_to_white, Center.XCenter(BANNER)))
+    print(Colorate.Vertical(Colors.red_to_white, Center.XCenter(art)))
     print()
-    print(Center.XCenter(f"  Fork By : {RED}Observant{WHITE}"))
+    print(Center.XCenter(forkAM))
     print()
 
 def fetch_page(url):
     try:
         response = requests.get(url)
+        if response.status_code == 404:
+            print(f" {BLUE}[ {RED}X{BLUE} ]{RED} ERROR -> {WHITE}404 {GRAY}- Website not found.")
+            return None
         response.raise_for_status()
         return response.text
     except requests.RequestException:
-        print(f" {BLUE}[ {RED}X{BLUE} ]{RED} ERROR -> {WHITE}000x404")
+        print(f" {BLUE}[ {RED}X{BLUE} ]{RED} ERROR -> {WHITE}Request failed {GRAY}- Invalid URL or other issues.")
         return None
 
 def extract_links(html, base_url):
@@ -56,8 +84,10 @@ def web_crawler(start_url, max_depth=10):
             continue
         
         visited.add(current_url)
-        clear_screen()
-        display_banner()
+        log_url(current_url, start_url)
+        
+        os.system("cls")
+        artPrint()
         print(f" {BLUE}[ {WHITE}${BLUE} ]{WHITE} -> {current_url}")
         
         html = fetch_page(current_url)
@@ -67,8 +97,8 @@ def web_crawler(start_url, max_depth=10):
 
 def main():
     os.system("title ♥")
-    clear_screen()
-    display_banner()
+    os.system("cls")
+    artPrint()
     
     try:
         url = input(f" {BLUE}[ {WHITE}? {BLUE}]{WHITE} Enter URL -> ")
