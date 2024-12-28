@@ -23,4 +23,4 @@ A stylish and efficient web crawler that traverses websites and logs discovered 
 
 ## Screenshot
 
-![image](https://github.com/user-attachments/assets/6f522947-8cac-4190-8e17-12536d644323)
+![rounded-image](https://github.com/user-attachments/assets/c57e5bd0-f3d6-408b-8dde-907b7e3273fb)
