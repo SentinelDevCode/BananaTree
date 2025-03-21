@@ -26,8 +26,8 @@ art = """
 
 forkAM = f"""
                        {BLUE}╭────────────────────────╮
-                       │ {WHITE}Fork By: {RED}ByteWardenDev{BLUE} │
-                       ╰────────────────────────╯{WHITE}    
+                       │ {WHITE}   Fork By: {RED}Sentinel  {BLUE} │
+                       ╰────────────────────────╯{WHITE}   
 """
 
 def get_domain_name(url):
