@@ -20,7 +20,3 @@ A stylish and efficient web crawler that traverses websites and logs discovered 
  - pystyle
  - time
  - datetime
-
-## Screenshot
-
-![rounded-image](https://github.com/user-attachments/assets/c57e5bd0-f3d6-408b-8dde-907b7e3273fb)
